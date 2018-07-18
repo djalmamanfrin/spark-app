@@ -23,8 +23,13 @@ public class Routes {
                 contactService.insertContact(contact);
                 return new Gson().toJson(contact);
             });
-            put("/contacts/:id", (request, response) -> "put /contacts/:id");
-            delete("/contacts", (request, response) -> "delete /contacts");
+            put("/contacts", (request, response) -> {
+                Contact contact = new Gson().fromJson(request.body(), Contact.class);
+                return new Gson().toJson(contactService.editContact(contact));
+            });
+            delete("/contacts/:id", (request, response) ->
+                    new Gson().toJson(contactService.deleteContact(request.params(":id")))
+            );
         });
         after("/v1/*", (request, response) -> {
             response.type("application/json");
