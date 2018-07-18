@@ -1,4 +1,4 @@
-package com.spark;
+package com.spark.beans;
 
 public class MyBean {
     private String name;
